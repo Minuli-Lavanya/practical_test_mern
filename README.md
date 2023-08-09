@@ -1,1 +1,0 @@
-# practical_test_mern
