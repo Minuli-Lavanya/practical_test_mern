@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../Styles/todolist.css'
 
 const Todo = props => (
     <tr>
@@ -40,11 +41,12 @@ export default class TodosList extends Component {
         return (
             <div>
                 <h3>Todos List</h3>
-                <table className="table table-striped" style={{ marginTop: 20 }}>
+                <table id="todo" className="table table-striped" style={{ marginTop: 20 }}>
                     <thead>
                         <tr>
                             <th>Title</th>
                             <th>Status</th>
+                            <th></th>
                             
                         </tr>
                     </thead>
