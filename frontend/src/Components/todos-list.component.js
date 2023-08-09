@@ -16,9 +16,44 @@ const Todo = props => (
 
 export default class TodosList extends Component {
 
+    
+
     constructor(props) {
         super(props);
-        this.state = {todos: []};
+
+        this.onChangeTitle = this.onChangeTitle.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
+        this.state = {
+            todos: [],
+            title: '',
+            status: 'Pending',
+        };
+    }
+
+    onChangeTitle(e) {
+        this.setState({
+            title: e.target.value
+        });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        
+
+        const newTodo = {
+            title: this.state.title,
+            status: this.state.status
+        }
+
+        axios.post('http://localhost:4000/todos/add', newTodo)
+            .then(res => console.log(res.data));
+
+        this.setState({
+            title: '',
+            status: '',
+        })
     }
 
     componentDidMount() {
@@ -40,7 +75,23 @@ export default class TodosList extends Component {
     render() {
         return (
             <div>
-                <h3>Todos List</h3>
+                <form class="row g-3" onSubmit={this.onSubmit}>
+
+
+                <div class="col-sm-10">
+                    <label for="title" class="visually-hidden">Password</label>
+                    <input type="text"
+                                className="form-control"
+                                value={this.state.title}
+                                onChange={this.onChangeTitle} placeholder="Title"></input>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-secondary" style={{ paddingLeft: '65px', paddingRight: '65px' }}>Add Task</button>
+                </div>    
+
+                    
+                    
+                </form>
                 <table id="todo" className="table table-striped" style={{ marginTop: 20 }}>
                     <thead>
                         <tr>
