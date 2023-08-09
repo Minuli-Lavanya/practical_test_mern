@@ -18,6 +18,8 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
+//get all
+
 todoRoutes.route('/').get(async function(req, res) {
     try {
         const todos = await Todo.find();
@@ -27,6 +29,8 @@ todoRoutes.route('/').get(async function(req, res) {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+//get by id
 
 todoRoutes.route('/:id').get(async function(req, res) {
     try {
@@ -43,6 +47,8 @@ todoRoutes.route('/:id').get(async function(req, res) {
     }
 });
 
+//add
+
 todoRoutes.route('/add').post(async function(req, res) {
     try {
         const todo = new Todo(req.body);
@@ -53,6 +59,8 @@ todoRoutes.route('/add').post(async function(req, res) {
         res.status(400).json({ error: 'Adding new todo failed' });
     }
 });
+
+//update
 
 todoRoutes.route('/update/:id').put(async function(req, res) {
     try {
@@ -72,6 +80,17 @@ todoRoutes.route('/update/:id').put(async function(req, res) {
         res.status(400).json({ error: 'Update not possible' });
     }
 });
+
+//delete
+
+todoRoutes.route('/delete/:id').delete(async function(req, res) {
+    try {
+      const todo = await Todo.findByIdAndRemove(req.params.id);
+      res.json({ message: 'Task deleted' });
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  });
 
 app.use('/todos', todoRoutes);
 
