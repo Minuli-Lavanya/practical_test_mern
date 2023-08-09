@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 import TodosList from "./Components/todos-list.component";
+import TodosEdit from "./Components/todo-edit-screen";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         
         <Routes>
           <Route path="/" element={<TodosList />} />
-          {/* <Route path="/edit/:id" element={<EditTodo />} /> */}
+          <Route path="/edit" element={<TodosEdit />} />
         </Routes>
       </div>
     </Router>
